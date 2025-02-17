@@ -1,0 +1,93 @@
+{% extends "base_site.html" %}
+{% block static %} rel="stylesheet" href= '/../../static/Clients/style_Clients.css' {% endblock %}
+{% block title %} Клієнт::{{ client.client_name }} {% endblock %}
+{% block page %} <a href="{% url 'Clients:clients_mainlist' %}">Клієнти</a> | {{ client.client_name }} {% endblock %}
+
+{% block body %}
+    <div id="cv">
+        <img src="/../static/images/paper_clip.png" id="cv_paper_clip">
+
+        <h2 id="cv_employee_fullname"> {{client.client_name}} </h2>
+        <table id="cv_table">
+            <tr>
+                <th>Реєстраційний номер</th>
+                <td>{{client.client_taxID}}</td>
+            </tr>
+            {% if activities %}
+                <tr>
+                    <th>Сфери бізнесу</th>
+                    <td>
+                        {% for activity in activities %}
+                            {{activity.client_activities}} |
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endif %}
+             <tr>
+                <th>Юридична адреса</th>
+                <td>{{client.client_legal_address}}</td>
+            </tr>
+            <tr>
+                <th>Поштова адреса</th>
+                <td>{{client.client_postal_address}}</td>
+            </tr>
+            {% if phones %}
+                <tr>
+                    <th>Контактні телефони</th>
+                    <td>
+                        {% for phone in phones %}
+                            {{phone.phone}} |
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endif %}
+            {% if emails %}
+                <tr>
+                    <th>Електронні адреси</th>
+                    <td>
+                        {% for email in emails %}
+                            {{email.client_email}} |
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endif %}
+        </table>
+        {% if client.client_other_info %}
+            <p><b>ДОДАТКОВА ІНФОРМАЦІЯ:</b></p>
+            {{ client.client_other_info }}
+        {% endif %}
+        {% if managers %}
+            <p><b>МЕНЕДЖЕРИ:</b></p>
+            {% for manager in managers %}
+              <b>{{ manager.client_manager_name }}</b> </li>
+                <table id="client_manager_table">
+                    {% if manager.client_manager_role %}
+                    <tr>
+                        <th>Посада/статус</th>
+                        <td>{{manager.client_manager_role}}</td>
+                    </tr>
+                    {% endif %}
+                    {% if manager.client_manager_email %}
+                    <tr>
+                        <th>Електронна адреса</th>
+                        <td>{{manager.client_manager_email}}</td>
+                    </tr>
+                    {% endif %}
+                    {% if manager.client_manager_phone %}
+                    <tr>
+                        <th>Контактний телефон</th>
+                        <td>{{manager.client_manager_phone}}</td>
+                    </tr>
+                    {% endif %}
+                    {% if manager.client_manager_other_info %}
+                    <tr>
+                        <th>Додаткова інформація</th>
+                        <td>{{manager.client_manager_other_info}}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+                <p></p>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

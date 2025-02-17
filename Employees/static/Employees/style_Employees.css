@@ -1,0 +1,43 @@
+@import "/static/styles/style_general.css";
+
+/* Employees :: GENERAL */
+.cv_list{
+    width: 70%;
+    min-height: 700px;}
+
+.cv_list_position{
+    margin: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 4fr);}
+
+.cv_position_title{
+    font-family: TitleFont;
+    text-align: center;
+    font-size: 30px;}
+
+.cv_person{
+    display: block;
+    width: 300px;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: center;
+    padding-bottom: 0;}
+
+.cv_photo_href > img{
+    margin: 0;
+    position: relative;
+    top:0;
+    right: 0;}
+
+.cv_person_name{
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 0}
+
+
+
+/* cv_general.html */
+#cv_general_line{
+    box-shadow: 1px 2px 5px 2px gray;}
+
+

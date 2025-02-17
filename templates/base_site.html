@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head lang="uk" class='head'>
+    <meta charset="UTF-8">
+    <link {% block static %} rel="stylesheet" href="{% static 'style_general.css' %}"{% endblock %} >
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="/../static/images/logo.svg">
+    <div class="head" id="head_block">
+        <div id="page_name_block">
+            <h1>VBworkplace</h1>
+            <h2 id="page_name">{% block page %}{% endblock %}</h2>
+        </div>
+        <nav class="head">
+            <button>Кнопка 1</button>
+            <button>Кнопка 2</button>
+            <button>Кнопка 3</button>
+            <button>Кнопка 4</button>
+            <button>Кнопка 5</button>
+            <button>Кнопка 6</button>
+            <button>Кнопка 7</button>
+            <button>Кнопка 8</button>
+            <button onclick='location.href="{% url 'Clients:clients_mainlist' %}"' id="head_button_clients">Клієнти</button>
+            <button onclick='location.href="{% url 'Employees:cv_general' %}"' id="head_button_teem">Команда</button>
+        </nav>
+    </div>
+</head>
+<body>
+    {% block body %} {% endblock %}
+</body>
+</html>

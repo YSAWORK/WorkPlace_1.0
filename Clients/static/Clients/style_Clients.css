@@ -1,0 +1,15 @@
+@import "/static/styles/style_general.css";
+
+#cv_table{
+    width: 100%;
+    margin: 10px;
+}
+
+#client_manager_table{
+    margin: 0;
+    width: 50%;
+    font-size: 16px;
+}
+
+#client_manager_table > th{
+}

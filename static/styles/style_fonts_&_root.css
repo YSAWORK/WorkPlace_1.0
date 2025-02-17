@@ -1,0 +1,23 @@
+/*Значення змінних*/
+@font-face{
+    font-family: TitleFont;
+    src:url(fonts/Cera_Stencil_PRO_Trial_Bold.otf);
+}
+
+@font-face{
+    font-family: MainFont;
+    src:url(fonts/SchoolBookAC.ttf);
+}
+
+@keyframes button {
+    from {background-color: var(--company_bg_color)}
+    to {background-color: #bb0030}
+}
+
+:root{
+    /* Кольори */
+    --company_color: #EEEAE4;
+    --company_bg_color: rgb(128,0,33);
+    --general_bg_color: #FCF8EF;
+    --table_header_color: #F1E2D1;
+}
