@@ -7,7 +7,7 @@
     <div class="cv_list">
         {% for position in positions %}
             <a href="{% url 'Employees:cv_position' position %}"> <h2 class="cv_position_title"> {{ position }}и </h2> </a>
-            <hr id="cv_general_line">
+            <hr class="cv_line">
             <div class="cv_list_position">
                 {% for employee in employees %}
                     {% if position == employee.position %}

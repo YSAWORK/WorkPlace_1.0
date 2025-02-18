@@ -212,3 +212,46 @@ class ClientManagers(models.Model):
         verbose_name = f'Менеджер клієнта'
         verbose_name_plural = 'Менеджери клієнта'
         db_table = 'ClientManagers'
+
+
+class ClientAgreements(models.Model):
+    def __str__(self):
+        return f''
+
+    def renamed_file_location(self, filename: str) -> str:
+        filebase, extension = filename.split('.')
+        filebase = f'{self.client_agreement_number}_{self.client_agreement_date}'
+        return 'Clients/files/agreements/%s.%s' % (filebase, extension)
+
+    client_id = models.ForeignKey(
+        ClientsInfo,
+        db_column='client_id',
+        on_delete=models.CASCADE,)
+    client_agreement_number = models.CharField(
+        blank=False,
+        db_column='client_agreement_number',
+        help_text="Введіть номер договору або б/н",
+        max_length=50,
+        verbose_name="номер договору з клієнтом",
+        unique=True)
+    client_agreement_date = models.DateField(
+        blank=False,
+        db_column='client_agreement_date',
+        help_text="Оберіть дату укладення договору",
+        validators=[VBworkspace.validators.validator_birth_date],
+        verbose_name="дата укладення договору з клієнтом",)
+    client_agreement_description = models.TextField(
+        blank=True,
+        db_column='client_agreement_description',
+        max_length=500,
+        verbose_name='Опис суті договору з клієнтом',)
+    client_agreement_file = models.FileField(
+        blank=True,
+        db_column='client_agreement_file',
+        verbose_name='файл договору з клієнтом',
+        upload_to = renamed_file_location,)
+
+    class Meta:
+        verbose_name = f'Договір з клієнтом'
+        verbose_name_plural = 'Договори з клієнтом'
+        db_table = 'ClientAgreements'

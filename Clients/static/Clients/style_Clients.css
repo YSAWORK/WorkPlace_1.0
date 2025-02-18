@@ -5,11 +5,23 @@
     margin: 10px;
 }
 
-#client_manager_table{
+.client_cv_table{
     margin: 0;
-    width: 50%;
+    padding: 0;
+    width: 100%;
     font-size: 16px;
 }
 
-#client_manager_table > th{
+.client_manager_name{
+    width: 30%;
+}
+
+#client_other_info{
+    text-align: justify;
+    text-indent: 3ch;
+}
+
+#client_other_info::first-letter{
+    color: var(--company_bg_color);
+    font-weight: bold;
 }
