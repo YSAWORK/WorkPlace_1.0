@@ -1,0 +1,9 @@
+@import "Clients/static/Clients/style_Clients.css";
+
+#table_agreement{
+    font-size: 10px;
+
+}
+    #table_agreement > tr {
+        background-color: var(--company_bg_color)
+    }

@@ -1,7 +1,7 @@
 from django.forms import TextInput, Textarea
 from django.db import models
 from django.contrib import admin
-from Clients.models import ClientsInfo, ClientActivities, ClientEmail, ClientPhone, ClientDates, ClientManagers, ClientAgreements
+from Clients.models import ClientsInfo, ClientActivities, ClientEmail, ClientPhone, ClientDates, ClientManagers, ClientAgreements, ClientAdditionalAgreements
 
 
 @admin.register(ClientsInfo)
@@ -23,7 +23,7 @@ class ClientsInfoAdmin(admin.ModelAdmin):
         model = ClientDates
         extra = 0
 # InLine підклас моделі ClientAgreements
-    class Agreements(admin.TabularInline):
+    class Agreements(admin.StackedInline):
         model = ClientAgreements
         extra = 0
 # InLine підклас моделі ClientManagers

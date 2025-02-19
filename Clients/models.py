@@ -216,7 +216,7 @@ class ClientManagers(models.Model):
 
 class ClientAgreements(models.Model):
     def __str__(self):
-        return f''
+        return f'Договір з Клієнтом {self.client_id} # {self.client_agreement_number} від {self.client_agreement_date}'
 
     def renamed_file_location(self, filename: str) -> str:
         filebase, extension = filename.split('.')
@@ -244,11 +244,26 @@ class ClientAgreements(models.Model):
         blank=True,
         db_column='client_agreement_description',
         help_text="Додайте опис суті договору",
-        max_length=500,
+        max_length=1000,
         verbose_name='Опис суті договору з клієнтом',)
+    client_agreement_representative_name = models.CharField(
+        blank=True,
+        db_column='client_agreement_representative_name',
+        help_text="Введіть ПІБ представника клієнта, що підписав договір",
+        null=False,
+        max_length=400,
+        verbose_name="ПІБ представника клієнта, що підписав договір",)
+    client_agreement_representative_position = models.CharField(
+        blank=True,
+        db_column='client_agreement_representative_position',
+        help_text="Введіть посаду представника клієнта, що підписав договір (або дані довіреності)",
+        null=False,
+        max_length=200,
+        verbose_name="посада представника клієнта, що підписав договір (або дані довіреності)", )
     client_agreement_file = models.FileField(
         blank=True,
         db_column='client_agreement_file',
+        default='/../../media/Clients/files/agreements/default.pdf',
         help_text= "Додайте файл з договором в форматі PDF",
         validators= [FileExtensionValidator(allowed_extensions=['pdf'])],
         verbose_name='файл договору з клієнтом (pdf)',
@@ -258,3 +273,63 @@ class ClientAgreements(models.Model):
         verbose_name = f'Договір з клієнтом'
         verbose_name_plural = 'Договори з клієнтом'
         db_table = 'ClientAgreements'
+
+class ClientAdditionalAgreements(models.Model):
+    def __str__(self):
+        return f'Додаткова угода № {self.client_additional_agreement_number} від {self.client_additional_agreement_date} за Договором з Клієнтом {self.client_id} № {self.client_agreement_number} від {self.client_agreement_date}'
+
+    def renamed_file_location(self, filename: str) -> str:
+        filebase, extension = filename.split('.')
+        filebase = slugify(f'{ClientsInfo.objects.get(client_name=self.client_id).client_name}_{self.client_agreement_number}_{self.client_agreement_date}')
+        return 'Clients/files/agreements/%s.%s' % (filebase, extension)
+
+    agreement_id = models.ForeignKey(
+        ClientsInfo,
+        db_column='agreement_id',
+        on_delete=models.CASCADE,)
+    client_additional_agreement_number = models.CharField(
+        blank=False,
+        db_column='client_additional_agreement_number',
+        help_text="Введіть номер додаткової угоди до договору або б/н",
+        max_length=50,
+        verbose_name="номер додаткової угоди до договору з клієнтом",
+        unique=True)
+    client_additional_agreement_date = models.DateField(
+        blank=False,
+        db_column='client_additional_agreement_date',
+        help_text="Оберіть дату укладення додаткової угоди до договору",
+        validators=[VBworkspace.validators.validator_birth_date],
+        verbose_name="дата укладення додаткової угоди до договору з клієнтом",)
+    client_additional_agreement_description = models.TextField(
+        blank=True,
+        db_column='client_additional_agreement_description',
+        help_text="Додайте опис суті додаткової угоди до договору",
+        max_length=1000,
+        verbose_name='Опис суті додаткової угоди до договору з клієнтом',)
+    client_additional_agreement_representative_name = models.CharField(
+        blank=True,
+        db_column='client_additional_agreement_representative_name',
+        help_text="Введіть ПІБ представника клієнта, що підписав додаткову угоду до договору",
+        null=False,
+        max_length=400,
+        verbose_name="ПІБ представника клієнта, що підписав додаткову угоду до договору",)
+    client_additional_agreement_representative_position = models.CharField(
+        blank=True,
+        db_column='client_additional_agreement_representative_position',
+        help_text="Введіть посаду представника клієнта, що підписав додаткову угоду до договору (або дані довіреності)",
+        null=False,
+        max_length=200,
+        verbose_name="посада представника клієнта, що підписав додаткову угоду до договору (або дані довіреності)", )
+    client_additional_agreement_file = models.FileField(
+        blank=True,
+        db_column='client_additional_agreement_file',
+        default='/../../media/Clients/files/agreements/default.pdf',
+        help_text= "Додайте файл додаткової угоди до договору в форматі PDF",
+        validators= [FileExtensionValidator(allowed_extensions=['pdf'])],
+        verbose_name='файл додаткової угоди до договору з клієнтом (pdf)',
+        upload_to = renamed_file_location,)
+
+    class Meta:
+        verbose_name = f'Додаткова угода до Договору з клієнтом'
+        verbose_name_plural = 'Додаткові угоди до Договору з клієнтом'
+        db_table = 'ClientAdditionalAgreements'

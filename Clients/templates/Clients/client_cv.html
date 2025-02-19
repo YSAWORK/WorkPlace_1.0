@@ -54,7 +54,7 @@
                         </tr>
                     {% endif %}
                 </table>
-                <hr class="cv_line">
+                <hr>
                 {% if managers %}
                     <p><b>МЕНЕДЖЕРИ:</b></p>
                     {% for manager in managers %}
@@ -94,14 +94,14 @@
                         <p></p>
                     {% endfor %}
                 {% endif %}
-                <hr class="cv_line">
+                <hr>
                 {% if client.client_other_info %}
                     <p><b>ДОДАТКОВА ІНФОРМАЦІЯ:</b></p>
                     {% for string in client_other_info %}
-                        <p id='client_other_info'>{{ string }}</p>
+                        <p class='other_info'>{{ string }}</p>
                     {% endfor %}
                 {% endif %}
-                <hr class="cv_line">
+                <hr>
                 {% if dates %}
                     <p><b>ВАЖЛИВІ ДАТИ:</b></p>
                     {% for date in dates %}
@@ -114,9 +114,19 @@
             <div>
                 <div class="cases">
                     <select class="cv_list_info" onchange="window.location.href=this.options[this.selectedIndex].value">
-                        <option value="">ПРОЕКТИ</option>
+                        <option value="{% url 'Clients:client_cv' client.id %}">ДОГОВОРИ</option>
+                        {% for agreement in agreements %}
+                                <option value="{% url 'Clients:client_agreement' agreement.id%}">№ {{agreement.client_agreement_number}} від {{agreement.client_agreement_date}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div class="cases">
+                    <select class="cv_list_info" onchange="window.location.href=this.options[this.selectedIndex].value">
+                        <option value="{% url 'Clients:client_cv' client.id %}">ПРОЕКТИ</option>
                         {% for client in clients %}
-                                <option value="">{{client.client_name}}</option>
+                                <option >{{client.client_name}}</option>
                         {% endfor %}
                     </select>
                 </div>

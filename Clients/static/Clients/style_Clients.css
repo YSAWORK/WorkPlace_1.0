@@ -1,6 +1,5 @@
 @import "/static/styles/style_general.css";
-
-#cv_table{
+.table_Client{
     width: 100%;
     margin: 10px;
 }
@@ -16,12 +15,4 @@
     width: 30%;
 }
 
-#client_other_info{
-    text-align: justify;
-    text-indent: 3ch;
-}
 
-#client_other_info::first-letter{
-    color: var(--company_bg_color);
-    font-weight: bold;
-}

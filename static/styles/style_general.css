@@ -1,5 +1,17 @@
 @import "style_fonts_&_root.css";
 
+/* GENERAL TABLE STYLE */
+table{
+    margin: 40px;
+    font-size: 20px;
+    width: 70%;}
+    th{
+        background-color: var(--table_header_color);
+    }
+/* GENERAL HORIZONTAL LINE STYLE */
+hr{
+    box-shadow: 1px 2px 5px 2px var(--line_color);}
+
 /* Верхня панель сайту */
     #head_block{
         background-color: var(--company_color);
@@ -62,17 +74,6 @@ a:link, a:visited {
 a:hover{
     color: var(--company_bg_color);}
 
-table{
-    margin: 40px;
-    font-size: 20px;
-    width: 70%;
-}
-
-th{
-    background-color: var(--table_header_color);
-}
-
-
 #cv{
     min-height: 700px;
     padding: 20px 30px 50px 50px;
@@ -108,9 +109,6 @@ th{
     text-align: justify;
 }
 
-.cv_line{
-    box-shadow: 1px 2px 5px 2px gray;}
-
 /* select from list*/
 .cv_list_info{
     width: 100%;
@@ -131,3 +129,11 @@ th{
 /* two rows page 70/30*/
 .colum-left_2_70_30 {float: left; width: 68%;margin-top: 50px; margin-left: 10px;}
 .colum-right_2_70_30 {float: right; width: 30%;margin-top: 50px;}
+
+.other_info{
+    text-align: justify;
+    text-indent: 3ch;}
+
+.other_info::first-letter{
+        color: var(--company_bg_color);
+        font-weight: bold;}
