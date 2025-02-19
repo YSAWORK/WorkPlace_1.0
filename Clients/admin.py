@@ -26,9 +26,6 @@ class ClientsInfoAdmin(admin.ModelAdmin):
     class Agreements(admin.TabularInline):
         model = ClientAgreements
         extra = 0
-        formfield_overrides = {
-            models.CharField: {'widget': TextInput(attrs={'size': '100'})},
-            models.TextField: {'widget': Textarea(attrs={'rows': 2, 'cols': 100})}, }
 # InLine підклас моделі ClientManagers
     class ManagersInLine(admin.StackedInline):
         model = ClientManagers
@@ -38,7 +35,6 @@ class ClientsInfoAdmin(admin.ModelAdmin):
             models.TextField: {'widget': Textarea(attrs={'rows': 3, 'cols': 100})}, }
 
 # структура відображення моделі EmployeesInfo
-
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'size': '100'})},
         models.TextField: {'widget': Textarea(attrs={'rows': 10, 'cols': 100})},}

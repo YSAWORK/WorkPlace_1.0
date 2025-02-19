@@ -1,4 +1,4 @@
-from django.core.validators import EmailValidator
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from slugify import slugify
 import VBworkspace.validators, Employees.models, Clients.vocabularies
@@ -220,7 +220,7 @@ class ClientAgreements(models.Model):
 
     def renamed_file_location(self, filename: str) -> str:
         filebase, extension = filename.split('.')
-        filebase = f'{self.client_agreement_number}_{self.client_agreement_date}'
+        filebase = slugify(f'{ClientsInfo.objects.get(client_name=self.client_id).client_name}_{self.client_agreement_number}_{self.client_agreement_date}')
         return 'Clients/files/agreements/%s.%s' % (filebase, extension)
 
     client_id = models.ForeignKey(
@@ -243,12 +243,15 @@ class ClientAgreements(models.Model):
     client_agreement_description = models.TextField(
         blank=True,
         db_column='client_agreement_description',
+        help_text="Додайте опис суті договору",
         max_length=500,
         verbose_name='Опис суті договору з клієнтом',)
     client_agreement_file = models.FileField(
         blank=True,
         db_column='client_agreement_file',
-        verbose_name='файл договору з клієнтом',
+        help_text= "Додайте файл з договором в форматі PDF",
+        validators= [FileExtensionValidator(allowed_extensions=['pdf'])],
+        verbose_name='файл договору з клієнтом (pdf)',
         upload_to = renamed_file_location,)
 
     class Meta:
