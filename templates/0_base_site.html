@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head lang="uk" class='head'>
+    <meta charset="UTF-8">
+    <link {% block static %} rel="stylesheet" href="{% static 'style_general.css' %}"{% endblock %} >
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="/../static/images/logo.svg">
+    <div class="head" id="head_block">
+        <div id="page_name_block">
+            <h1>Workplace</h1>
+            <h2 id="page_name">{% block page %}{% endblock %}</h2>
+        </div>
+        <nav class="head">
+            <button onclick='location.href="{% url 'Clients:clients_mainlist' %}"'">Клієнти</button>
+            <button onclick='location.href="{% url 'Employees:cv_general' %}"'">Команда</button>
+        </nav>
+    </div>
+</head>
+<body>
+    {% block body %} {% endblock %}
+</body>
+<footer>
+    <div id="footer">
+        {% block footer %} {% endblock %}
+    </div>
+</footer>
+</html>

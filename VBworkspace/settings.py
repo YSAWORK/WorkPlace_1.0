@@ -1,5 +1,6 @@
-import os
+import os, sys
 from pathlib import Path
+sys.path.append("/Applications/djangostack-1.4.7-0/python/lib/python2.7/site-packages/")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 

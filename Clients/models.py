@@ -226,7 +226,8 @@ class ClientAgreements(models.Model):
     client_id = models.ForeignKey(
         ClientsInfo,
         db_column='client_id',
-        on_delete=models.CASCADE,)
+        on_delete=models.CASCADE,
+        verbose_name="Клієнт",)
     client_agreement_number = models.CharField(
         blank=False,
         db_column='client_agreement_number',
@@ -265,26 +266,27 @@ class ClientAgreements(models.Model):
         db_column='client_agreement_file',
         default='/../../media/Clients/files/agreements/default.pdf',
         help_text= "Додайте файл з договором в форматі PDF",
+        null='/../../media/Clients/files/agreements/default.pdf',
         validators= [FileExtensionValidator(allowed_extensions=['pdf'])],
         verbose_name='файл договору з клієнтом (pdf)',
         upload_to = renamed_file_location,)
 
     class Meta:
-        verbose_name = f'Договір з клієнтом'
-        verbose_name_plural = 'Договори з клієнтом'
+        verbose_name = f'Договір з Клієнтом'
+        verbose_name_plural = 'Договори з Клієнтами'
         db_table = 'ClientAgreements'
 
 class ClientAdditionalAgreements(models.Model):
     def __str__(self):
-        return f'Додаткова угода № {self.client_additional_agreement_number} від {self.client_additional_agreement_date} за Договором з Клієнтом {self.client_id} № {self.client_agreement_number} від {self.client_agreement_date}'
+        return f'Додаткова угода № {self.client_additional_agreement_number} від {self.client_additional_agreement_date} за Договором з Клієнтом {self.agreement_id.client_id} № {self.agreement_id.client_agreement_number} від {self.agreement_id.client_agreement_date}'
 
     def renamed_file_location(self, filename: str) -> str:
         filebase, extension = filename.split('.')
-        filebase = slugify(f'{ClientsInfo.objects.get(client_name=self.client_id).client_name}_{self.client_agreement_number}_{self.client_agreement_date}')
+        filebase = slugify(f'{ClientsInfo.objects.get(client_name=self.agreement_id.client_id).client_name}_{self.agreement_id.client_agreement_number}_{self.agreement_id.client_agreement_date}')
         return 'Clients/files/agreements/%s.%s' % (filebase, extension)
 
     agreement_id = models.ForeignKey(
-        ClientsInfo,
+        ClientAgreements,
         db_column='agreement_id',
         on_delete=models.CASCADE,)
     client_additional_agreement_number = models.CharField(
@@ -324,6 +326,7 @@ class ClientAdditionalAgreements(models.Model):
         blank=True,
         db_column='client_additional_agreement_file',
         default='/../../media/Clients/files/agreements/default.pdf',
+        null='/../../media/Clients/files/agreements/default.pdf',
         help_text= "Додайте файл додаткової угоди до договору в форматі PDF",
         validators= [FileExtensionValidator(allowed_extensions=['pdf'])],
         verbose_name='файл додаткової угоди до договору з клієнтом (pdf)',

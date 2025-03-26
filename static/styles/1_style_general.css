@@ -1,0 +1,122 @@
+@import "0_style_fonts_&_root.css";
+
+
+/*------------------------------------------------------------HEADER-------------------------------------------------------------------*/
+/* HEADER */
+#head_block{
+    background-color: var(--company_color);
+    color: var(--company_bg_color);
+    opacity: 90%;
+    position: fixed;
+    top: 0;
+    height: 50px;
+    width: 100%;
+    margin-top: 0;
+    margin-left: 0;
+    padding-bottom: 25px;
+    font-family: TitleFont, serif;
+    font-size: 20px;
+    display: inline-grid;
+    z-index: 100;}
+    #page_name{
+        width: 100%;
+        height: 40px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 30px;}
+        #page_name_block > *{
+            margin: 0;}
+
+
+/* GENERAL NAVIGATION BUTTONS */
+nav {font-size: 0;}
+    nav > button{
+        width: 50%;
+        height: 40px;
+        margin-top: -11px;
+        background-color: var(--company_bg_color);
+        color: var(--company_color);
+        font-family: MainFont, serif;
+        font-size: 20px;
+        font-weight:bold;
+        border-radius: 0 0 11px 11px ;
+        transition:height 0.2s;
+        transition-delay: 0.2s;
+        cursor: pointer;
+        box-shadow: 10px 10px 5px grey;}
+        nav > button:hover{
+            height: 45px;
+            animation-name: button;
+            animation-duration:2s;}
+
+
+
+/*------------------------------------------------------------BODY-------------------------------------------------------------------*/
+/* BODY____________________________________________________*/
+body {
+    background-color: var(--general_bg_color);
+    margin-top: 100px;
+    margin-left: 0;
+    font-family: MainFont, serif;}
+
+
+/* TABLES_________________________________________________*/
+table{
+    margin-top: 120px;
+    font-size: 20px;
+    width: 80%;
+    border-color: 5px var(--company_bg_color);}
+    th{
+        text-transform: uppercase;
+        background-color: var(--table_header_color);
+        }
+    .table_button{
+        width: 100%;
+        height: max-content;
+        font-family: MainFont, serif;
+        font-size: 15px;
+        background-color: var(--company_bg_color);
+        color: var(--company_color);
+        border-radius: 5px;}
+    .table_button:hover{
+        background-color: var(--company_color);
+        color: var(--company_bg_color);
+    font-weight: bold;}
+
+
+/* LINKS________________________________________________*/
+a{}
+a:link, a:visited {
+    font-family: TitleFont, serif;
+    color: black;
+    text-decoration: none;}
+a:hover{
+    color: var(--company_bg_color);}
+
+/* HORIZONTAL LINES______________________________________*/
+hr{box-shadow: 1px 2px 5px 2px var(--line_color);}
+
+
+/* TEXT FORMATS__________________________________________*/
+.general_text_format{
+    text-align: justify;
+    text-indent: 3ch;}
+.general_text_format::first-letter{
+    color: var(--company_bg_color);
+    font-weight: bold;}
+.bold_text{font-weight: bold;}
+
+
+
+/*------------------------------------------------------------FOOTER-------------------------------------------------------------------*/
+/* FOOTER */
+#footer {
+    height: 60px;
+    width: 100%;
+    background-color: var(--company_color);
+    opacity: 70%;
+    position: fixed;
+    bottom: 0;}
+
+
+

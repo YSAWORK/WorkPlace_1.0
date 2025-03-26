@@ -1,10 +1,10 @@
-{% extends "base_site.html" %}
-{% block static %} rel="stylesheet" href= '/../../static/Employees/style_Employees.css' {% endblock %}
+{% extends "0_base_site.html" %}
+{% block static %} rel="stylesheet" href='/../../static/styles/2.1_style_cv.css' {% endblock %}
 {% block title %} CV::Команда {% endblock %}
 {% block page %} <a href="{% url 'Employees:cv_general' %}">Команда</a> | {{ position }}и {% endblock %}
 
 {% block body %}
-        <div class='cv_list'>
+        <div class='cv_paper'>
             <div class="cv_list_position">
                 {% for employee in employees %}
                     <div class="cv_person">

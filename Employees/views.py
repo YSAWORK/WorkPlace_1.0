@@ -14,25 +14,27 @@ def employee_cv(request, employee_id: id):
     rewards = EmployeeRewards.objects.filter(employee_name=employee.pk)
     emails = EmployeeEmail.objects.filter(employee_name=employee.pk)
     phones = EmployeePhone.objects.filter(employee_name=employee.pk)
+    other_info = employee.other_info.split('\n')
     clients = ClientsInfo.objects.filter(client_responsible_employee=employee.pk)
-    return render(request,'Employees/employee_cv.html', {
+    return render(request,'Employees/1.3_cv_employee.html', {
         'employee' : employee,
         'educations' : educations,
         "attorney_license" : attorney_license,
         'rewards' : rewards,
         'emails' : emails,
         'phones' : phones,
-        'clients' : clients})
+        'clients' : clients,
+        'other_info' : other_info})
 
 def cv_general(request):
     employees = EmployeesInfo.objects.all()
     positions = Position
-    return render(request, 'Employees/cv_general.html', {
+    return render(request, 'Employees/1.1_cv_general.html', {
         'employees': employees,
         'positions' : positions})
 
 def cv_position(request, employee_position):
     employees = EmployeesInfo.objects.filter(position=employee_position)
-    return render(request, 'Employees/cv_position.html', {
+    return render(request, 'Employees/1.2_cv_position.html', {
         'employees': employees,
         'position': employee_position})

@@ -1,0 +1,18 @@
+{% extends "0_base_site.html" %}
+{% block static %} rel="stylesheet" href='/../static/styles/2.1_style_cv.css' {% endblock %}
+{% block title %}{% endblock %}
+{% block page %}{% endblock %}
+
+{% block body %}
+<div>
+    <div class="colum-left">
+        <div class="cv_paper">
+            <img src="/../static/images/paper_clip.png" class="cv_paper_clip">
+            {% block left_column %}{% endblock %}
+        </div>
+    </div>
+    <div class="colum-right">
+        {% block right_column %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

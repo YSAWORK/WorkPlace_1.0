@@ -1,0 +1,134 @@
+{% extends "1.1_base_cv.html" %}
+{% block title %} Клієнт::{{ client.client_name }} {% endblock %}
+{% block page %} <a href="{% url 'Clients:clients_mainlist' %}">Клієнти</a> | {{ client.client_name }} {% endblock %}
+
+{% block left_column %}
+    <h2 id="cv_employee_fullname"> {{client.client_name}} </h2>
+    <table class = 'cv_table'>
+        <tr>
+            <th>Реєстраційний номер</th>
+            <td>{{client.client_taxID}}</td>
+        </tr>
+        {% if activities %}
+            <tr>
+                <th>Сфери бізнесу</th>
+                <td>
+                    {% for activity in activities %}
+                        {{activity.client_activities}} |
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endif %}
+         <tr>
+            <th>Юридична адреса</th>
+            <td>{{client.client_legal_address}}</td>
+        </tr>
+        <tr>
+            <th>Поштова адреса</th>
+            <td>{{client.client_postal_address}}</td>
+        </tr>
+        {% if phones %}
+            <tr>
+                <th>Контактні телефони</th>
+                <td>
+                    {% for phone in phones %}
+                        {{phone.phone}} |
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endif %}
+        {% if emails %}
+            <tr>
+                <th>Електронні адреси</th>
+                <td>
+                    {% for email in emails %}
+                        {{email.client_email}} |
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endif %}
+    </table>
+    <hr>
+    {% if managers %}
+        <p><b>МЕНЕДЖЕРИ:</b></p>
+        {% for manager in managers %}
+        <table class = 'cv_table'>
+            <td class = 'client_manager_name'>
+                <b>{{ manager.client_manager_name }}</b>
+            </td>
+            <td>
+                <table class = 'cv_table'>
+                    {% if manager.client_manager_role %}
+                    <tr>
+                        <th class = 'client_manager_name'>Посада/статус</th>
+                        <td>{{manager.client_manager_role}}</td>
+                    </tr>
+                    {% endif %}
+                    {% if manager.client_manager_email %}
+                    <tr>
+                        <th>Електронна адреса</th>
+                        <td>{{manager.client_manager_email}}</td>
+                    </tr>
+                    {% endif %}
+                    {% if manager.client_manager_phone %}
+                    <tr>
+                        <th>Контактний телефон</th>
+                        <td>{{manager.client_manager_phone}}</td>
+                    </tr>
+                    {% endif %}
+                    {% if manager.client_manager_other_info %}
+                    <tr>
+                        <th>Додаткова інформація</th>
+                        <td>{{manager.client_manager_other_info}}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </td>
+            </table>
+            <p></p>
+        {% endfor %}
+    {% endif %}
+    <hr>
+    {% if client.client_other_info %}
+        <p><b>ДОДАТКОВА ІНФОРМАЦІЯ:</b></p>
+        {% for string in client_other_info %}
+            <p class='general_text_format'>{{ string }}</p>
+        {% endfor %}
+    {% endif %}
+    <hr>
+    {% if dates %}
+        <p><b>ВАЖЛИВІ ДАТИ:</b></p>
+        {% for date in dates %}
+            <p><b>{{ date.client_date|date:"d F"}}</b> - {{ date.client_date_description }} ({{ date.client_date|date:"Y"}})</p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{%block right_column %}
+    <button onclick='location.href="{% url 'Clients:clients_mainlist' %}"' class="back_right_buttons">Список клієнтів</button>
+    <button onclick='location.href="{% url 'Employees:employee_cv' client.client_responsible_employee.id %}"' class="back_right_buttons">Менеджер</button>
+    <select class="right_menu_selects" onchange="window.location.href=this.options[this.selectedIndex].value">
+        <option value="{% url 'Clients:client_cv' client.id %}">Договори</option>
+        {% for agreement in agreements %}
+                <option value="{% url 'Clients:client_agreement' agreement.id%}">№ {{agreement.client_agreement_number}} | {{agreement.client_agreement_date|date:"d.m.Y"}}</option>
+        {% endfor %}
+    </select>
+    <select class="right_menu_selects" onchange="window.location.href=this.options[this.selectedIndex].value">
+        <option value="{% url 'Clients:client_cv' client.id %}">Проекти</option>
+        {% for client in clients %}
+                <option >{{client.client_name}}</option>
+        {% endfor %}
+    </select>
+    <select class="right_menu_selects" onchange="window.location.href=this.options[this.selectedIndex].value">
+        <option value="{% url 'Clients:client_cv' client.id %}">Кейси</option>
+        {% for client in clients %}
+                <option >{{client.client_name}}</option>
+        {% endfor %}
+    </select>
+    <select class="right_menu_selects" onchange="window.location.href=this.options[this.selectedIndex].value">
+        <option value="{% url 'Clients:client_cv' client.id %}">Задачі</option>
+        {% for client in clients %}
+                <option >{{client.client_name}}</option>
+        {% endfor %}
+    </select>
+{% endblock %}
