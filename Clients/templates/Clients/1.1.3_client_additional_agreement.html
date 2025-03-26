@@ -1,0 +1,51 @@
+{% extends "1.1_base_cv.html" %}
+{% block title %} Договір::{{ client.client_name }} {% endblock %}
+{% block page %} <a href="{% url 'Clients:clients_mainlist' %}">Клієнти</a>
+      | <a href="{% url 'Clients:client_cv' client.id %}">{{ client.client_name }}</a>
+      | <a href="{% url 'Clients:client_agreement' additional_agreement.agreement_id.id %}">Договір № {{ additional_agreement.agreement_id.client_agreement_number}}</a>
+      | ДУ № {{additional_agreement.client_additional_agreement_number}} від {{additional_agreement.client_additional_agreement_date|date:"d.m.Y"}} {% endblock %}
+
+{% block left_column %}
+    <h2 id="cv_employee_fullname"> Додаткова угода {{additional_agreement.client_additional_agreement_number}} від {{additional_agreement.client_additional_agreement_date|date:"d.m.Y"}}<br> до Договору № {{additional_agreement.agreement_id.client_agreement_number}} від {{additional_agreement.agreement_id.client_agreement_date|date:"d.m.Y"}}<br>з {{additional_agreement.agreement_id.client_id.client_name}}</h2>
+    <table id = 'table_agreement' class = 'table_Client'>
+        {% if additional_agreement.client_additional_agreement_description %}
+            <tr>
+                <th><p><b>Суть додаткової угоди:</b></p></th>
+                <td>{% for string in additional_agreement_description %}
+                        <p class='general_text_format'>{{ string }}</p>
+                    {% endfor %}
+                </td>
+            </tr>
+         {% endif %}
+        {% if additional_agreement.client_additional_agreement_representative_name %}
+            <tr>
+                <th><p>Підписант Клієнта:</p></th>
+                <td><p>{{additional_agreement.client_additional_agreement_representative_name}}</p></td>
+            <tr>
+        {% endif %}
+        {% if additional_agreement.client_additional_agreement_representative_position %}
+            <tr>
+                <th><p>Посада підписанта (чи дані про довіреність):</p></th>
+                <td><p>{{additional_agreement.client_additional_agreement_representative_position}}</p></td>
+            <tr>
+        {% endif %}
+    </table>
+    <hr class="cv_line">
+    <object data="/media/{{additional_agreement.client_additional_agreement_file}}" width="100%" height="1000px" ></object>
+{% endblock %}
+
+{%block right_column %}
+    <button onclick='location.href="{% url 'Clients:client_agreement' additional_agreement.agreement_id.id %}"' class="right_buttons">Договір</button>
+    <select class="right_menu_selects" onchange="window.location.href=this.options[this.selectedIndex].value">
+        <option value="">ДОГОВОРИ</option>
+        {% for agreement in agreements %}
+                <option value="">№ {{agreement.client_agreement_number}} від {{agreement.client_agreement_date}}</option>
+        {% endfor %}
+    </select>
+    <select class="right_menu_selects" onchange="window.location.href=this.options[this.selectedIndex].value">
+        <option value="">ПРОЕКТИ</option>
+        {% for client in clients %}
+                <option value="">{{client.client_name}}</option>
+        {% endfor %}
+    </select>
+{% endblock %}

@@ -1,5 +1,6 @@
-import os
+import os, sys
 from pathlib import Path
+sys.path.append("/Applications/djangostack-1.4.7-0/python/lib/python2.7/site-packages/")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,6 +28,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -90,3 +92,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'

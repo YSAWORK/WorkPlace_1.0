@@ -1,0 +1,40 @@
+{% extends "0_base_site.html" %}
+{% block static %} rel="stylesheet" href='/../../static/styles/1_style_general.css'{% endblock %}
+{% block title %} Клієнти {% endblock %}
+{% block page %} Клієнти {% endblock %}
+
+{% block body %}
+    <table>
+      <tr>
+        <th>Клієнт</th>
+        <th>Договори</th>
+        <th>Проекти</th>
+        <th>Кейси</th>
+        <th>Задачі</th>
+        <th>Менеджер</th>
+      </tr>
+      {% for client in clients %}
+        <tr>
+          <td> <!-- Клієнт -->
+            <a href="{% url 'Clients:client_cv' client.id %}">{{client.client_name}}
+          </td>
+          <td> <!-- Договори -->
+            <button class="table_button">---- {{ agreements | get_item:client.id | length}} ----</button>
+          </td>
+          <td> <!-- Проекти -->
+            <button class="table_button">/число/</button>
+          </td>
+          <td> <!-- Кейси -->
+            <button class="table_button">/число/</button>
+          </td>
+          <td> <!-- Задачі -->
+            <button class="table_button">/число/</button>
+          </td>
+          <td> <!-- Менеджер -->
+            <a href="{% url 'Employees:employee_cv' client.client_responsible_employee.id %}" class="cv_photo_href">
+            {{client.client_responsible_employee}}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+{% endblock %}
